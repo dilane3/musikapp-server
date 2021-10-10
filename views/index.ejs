@@ -5,12 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        audio {
+            width: 400px;
+            height: 400px;
+            margin: 30px 20px;
+        }
+    </style>
 </head>
 <body>
     <form method="POST" enctype="multipart/form-data" action="http://localhost:5000/api/musik/upload">
-        <input type="file" name="audio" class="audio">
+        <input type="file" name="audio" class="audio" accept="audio/*">
 
         <button class="btn">Upload</button>
+        <span></span>  
     </form>
+
+    <audio src="" controls />
+
+    <script>
+        const file = document.querySelector("input[type=file]")
+        const button = document.querySelector("button")
+        const loading = document.querySelector("span")
+
+        button.onclick = function(event) {
+            event.preventDefault()
+
+            const newfile = file.files[0]
+
+            let dataform = new FormData()
+
+            dataform.append("audio", newfile)
+
+            loading.innerText = "Loading..."
+
+            fetch("http://localhost:5000/api/musik/upload", {method: "post", body: dataform})
+            .then(res => res.json())
+            .then(res => {
+                loading.innerText = ""
+                const data = res.data
+
+                console.log(data.filename)
+
+                document.querySelector("audio").src = data.filename
+            })
+            .catch(err => console.error(err))
+        }
+    </script>
 </body>
 </html>
