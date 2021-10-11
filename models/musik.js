@@ -6,7 +6,8 @@ const musikSchema = new Schema({
     title: {type: String, require: true},
     author: {type: String, require: true},
     filename: {type: String, require: true},
-    image: {type: String, default: "default.png"}
+    image: {type: String, default: "default.png"},
+    downloadName: {type: String, require: true}
 })
 
 export default mongoose.model("musik", musikSchema)

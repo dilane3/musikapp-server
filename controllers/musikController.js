@@ -5,8 +5,14 @@ const uploadMusik = async (req, res) => {
     const {title, author} = req.body
 
     if (file && title.length > 0 && author.length > 0) {
-        const filename = `http://localhost:5000/api/static/${req.file.filename}`
-        const payload = {title, author, filename}
+        const filename = `http://192.168.43.81:5000/api/static/${req.file.filename}`
+
+        // generation of the filename for download
+        const arrayOfString = filename.split(".")
+        const extension = arrayOfString[arrayOfString.length-1]
+
+        const downloadName = `${author}-${title}.${extension}`
+        const payload = {title, author, filename, downloadName}
 
         const musik = new Musik(payload)
 
@@ -14,13 +20,7 @@ const uploadMusik = async (req, res) => {
             // we save musik here in the database
             await musik.save()
 
-            // generation of the filename for download
-            const arrayOfString = musik.filename.split(".")
-            const extension = arrayOfString[arrayOfString.length-1]
-
-            const downloadName = `${musik.author}-${musik.title}.${extension}`
-
-            return res.status(201).json({data: {...musik, downloadName}})
+            return res.status(201).json({data: musik})
         } catch (err) {
             return res.sendStatus(500)
         }
