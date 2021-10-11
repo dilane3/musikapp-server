@@ -11,7 +11,13 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
     console.log(file)
-    if((file.mimetype).includes('mp3') || (file.mimetype).includes('wav') || (file.mimetype).includes('mpeg')){
+    if(
+        (file.mimetype).includes('ogg') || 
+        (file.mimetype).includes('wav') || 
+        (file.mimetype).includes('mpeg') ||
+        (file.mimetype).includes('webm') ||
+        (file.mimetype).includes('midi')
+    ){
         cb(null, true);
     } else{
         cb(null, false);

@@ -4,7 +4,7 @@ const uploadMusik = async (req, res) => {
     const {file} = req
     const {title, author} = req.body
 
-    if (file && title && author) {
+    if (file && title.length > 0 && author.length > 0) {
         const filename = `http://localhost:5000/api/static/${req.file.filename}`
         const payload = {title, author, filename}
 

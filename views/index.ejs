@@ -40,6 +40,8 @@
             let dataform = new FormData()
 
             dataform.append("audio", newfile)
+            dataform.append("title", "hello")
+            dataform.append("author", "dialne3")
 
             loading.innerText = "Loading..."
 
@@ -47,7 +49,7 @@
             .then(res => res.json())
             .then(res => {
                 loading.innerText = ""
-                const data = res.data
+                const data = res.data._doc
 
                 console.log(data)
 
