@@ -2,23 +2,25 @@ import Musik from "../models/musik.js"
 
 const uploadMusik = async (req, res) => {
     const {file} = req
+    const {title, author} = req.body
 
-    if (file) {
-        const filename = `http://localhost:5000/static/${req.file.filename}`
-        const payload = {
-            title: "mon soleil",
-            author: "dadju",
-            filename
-        }
+    if (file && title && author) {
+        const filename = `http://localhost:5000/api/static/${req.file.filename}`
+        const payload = {title, author, filename}
 
         const musik = new Musik(payload)
 
         try {
+            // we save musik here in the database
             await musik.save()
 
-            console.log(musik)
+            // generation of the filename for download
+            const arrayOfString = musik.filename.split(".")
+            const extension = arrayOfString[arrayOfString.length-1]
 
-            return res.status(200).json({data: musik})
+            const downloadName = `${musik.author}-${musik.title}.${extension}`
+
+            return res.status(201).json({data: {...musik, downloadName}})
         } catch (err) {
             return res.sendStatus(500)
         }

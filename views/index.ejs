@@ -19,7 +19,9 @@
         <input type="file" name="audio" class="audio" accept="audio/*">
 
         <button class="btn">Upload</button>
-        <span></span>  
+        <span></span>
+
+        <a href="" download="">Download</a>
     </form>
 
     <audio src="" controls />
@@ -28,6 +30,7 @@
         const file = document.querySelector("input[type=file]")
         const button = document.querySelector("button")
         const loading = document.querySelector("span")
+        const download = document.querySelector("a")
 
         button.onclick = function(event) {
             event.preventDefault()
@@ -46,9 +49,12 @@
                 loading.innerText = ""
                 const data = res.data
 
-                console.log(data.filename)
+                console.log(data)
 
                 document.querySelector("audio").src = data.filename
+
+                download.href = data.filename
+                download.download = data.downloadName
             })
             .catch(err => console.error(err))
         }
