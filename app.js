@@ -34,6 +34,7 @@ app.use("/api/static", express.static("uploads"))
 app.use("/api/musik", musikRouter)
 
 app.get('/', (req, res) => {
+    console.log(req.headers.host)
     res.render('index')
 })
 

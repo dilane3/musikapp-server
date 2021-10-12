@@ -2,9 +2,9 @@ import Musik from "../models/musik.js"
 
 const uploadMusik = async (req, res) => {
     const {file} = req
-    const {title, author} = req.body
+    const {title, author, category} = req.body
 
-    if (file && title.length > 0 && author.length > 0) {
+    if (file && title.length > 0 && author.length > 0 && category) {
         const filename = `http://192.168.43.81:5000/api/static/${req.file.filename}`
 
         // generation of the filename for download
@@ -12,7 +12,7 @@ const uploadMusik = async (req, res) => {
         const extension = arrayOfString[arrayOfString.length-1]
 
         const downloadName = `${author}-${title}.${extension}`
-        const payload = {title, author, filename, downloadName}
+        const payload = {title, author, filename, category, downloadName}
 
         const musik = new Musik(payload)
 
