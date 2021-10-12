@@ -5,7 +5,7 @@ const uploadMusik = async (req, res) => {
     const {title, author, category} = req.body
 
     if (file && title.length > 0 && author.length > 0 && category) {
-        const filename = `http://192.168.43.81:5000/api/static/${req.file.filename}`
+        const filename = `https://${req.headers.host}/api/static/${req.file.filename}`
 
         // generation of the filename for download
         const arrayOfString = filename.split(".")
