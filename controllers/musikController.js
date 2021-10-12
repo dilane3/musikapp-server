@@ -15,6 +15,7 @@ const uploadMusik = async (req, res) => {
         const payload = {title, author, filename, category, downloadName}
 
         const musik = new Musik(payload)
+        console.log(filename)
 
         try {
             // we save musik here in the database

@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <form method="POST" enctype="multipart/form-data" action="http://localhost:5000/api/musik/upload">
+    <form enctype="multipart/form-data">
         <input type="file" name="audio" class="audio" accept="audio/*">
 
         <button class="btn">Upload</button>
@@ -46,7 +46,7 @@
 
             loading.innerText = "Loading..."
 
-            fetch("http://localhost:5000/api/musik/upload", {method: "post", body: dataform})
+            fetch("https://musikapp-server.herokuapp.com/api/musik/upload", {method: "post", body: dataform})
             .then(res => res.json())
             .then(res => {
                 loading.innerText = ""
