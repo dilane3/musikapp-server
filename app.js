@@ -6,10 +6,10 @@ import mongoose from 'mongoose'
 
 config()
 
-const {PORT, DATABASE_URL_DEV} = process.env
+const {PORT, DATABASE_URL} = process.env
 
 // connexion a la base de donnee
-mongoose.connect(DATABASE_URL_DEV, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => console.log("connected to the database"))
 .catch(err => console.log("error while connecting to the database"))
 
