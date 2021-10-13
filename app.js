@@ -6,10 +6,10 @@ import mongoose from 'mongoose'
 
 config()
 
-const {PORT, DATABASE_URL} = process.env
+const {PORT, DATABASE_URL_DEV} = process.env
 
 // connexion a la base de donnee
-mongoose.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(DATABASE_URL_DEV, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => console.log("connected to the database"))
 .catch(err => console.log("error while connecting to the database"))
 
@@ -28,7 +28,7 @@ const corsOptions = {
 app.use('/', cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use("/api/static", express.static("uploads"))
+app.use("/static", express.static("uploads"))
 
 // set up route
 app.use("/api/musik", musikRouter)
